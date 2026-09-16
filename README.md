@@ -1,140 +1,71 @@
-# ELO — Economia do Futuro com ERC-20
+# 🎓 Token ELO (ELO) — Economia de Recompensa Escolar
 
-Projeto do Trabalho Prático de Blockchain: criação de uma moeda ERC-20 para recompensas acadêmicas.
+O **ELO** é um token de recompensa educacional baseado no padrão **ERC-20**, desenvolvido em Solidity com suporte das bibliotecas OpenZeppelin. O objetivo do projeto é gamificar a participação e o engajamento dos alunos, permitindo que professores e administradores concedam tokens por mérito acadêmico ou comportamental, e que os alunos possam resgatá-los por benefícios escolares.
 
-## 1. Proposta
+---
 
-O **ELO (ELO)** representa uma pontuação/token de incentivo. A instituição pode recompensar alunos por participação, projetos, atividades e contribuições.
+## 🛠️ Tecnologias Utilizadas
 
-## 2. Especificações
+* **Solidity (`^0.8.20`)**: Linguagem dos contratos inteligentes.
+* **OpenZeppelin Contracts**: Implementações padrões para segurança (`ERC20`, `AccessControl`, `Pausable`).
+* **Ethers.js (v6)**: Integração Web3 para comunicação entre a interface HTML/JS e a blockchain.
+* **Tailwind CSS**: Estilização responsiva do painel de controle.
+* **Remix IDE & MetaMask**: Compilação, deploy e interação na rede de testes **Sepolia**.
 
-- **Nome:** Elo
-- **Símbolo:** ELO
-- **Padrão:** ERC-20
-- **Decimals:** 18
-- **Supply inicial:** 1.000.000 ELO
-- **Supply máximo:** 10.000.000 ELO
-- **Limite por recompensa:** 1.000 ELO
+---
 
-## 3. Segurança
+## 📜 Regras de Negócio e Segurança
 
-A versão 2.0 separa responsabilidades:
+* **Supply Inicial**: `1.000.000 ELO` emitidos para o endereço do Administrador no deploy.
+* **Supply Máximo**: Limite absoluto de `10.000.000 ELO`.
+* **Limite por Recompensa**: Máximo de `1.000 ELO` por transação.
+* **Controle de Acesso (`AccessControl`)**:
+  * `DEFAULT_ADMIN_ROLE`: Gerencia papéis de acesso e possui permissão para pausar/despausar o contrato.
+  * `REWARDER_ROLE`: Autorizado a emitir novas recompensas aos alunos.
+* **Mecanismo de Resgate**: Ao trocar o token por um benefício, os tokens do aluno são permanentemente queimados (`_burn`).
+* **Proteções**: Anti auto-recompensa (o recompensador não pode enviar tokens para si mesmo) e suporte ao módulo `Pausable` para emergências.
 
-### Administrador — `DEFAULT_ADMIN_ROLE`
-Pode:
-- adicionar recompensadores;
-- remover recompensadores;
-- pausar o contrato;
-- despausar o contrato.
+---
 
-### Recompensador — `REWARDER_ROLE`
-Pode:
-- executar `concederElo()`.
+## 🚀 Como Executar o Projeto
 
-### Aluno
-Pode:
-- receber ELO;
-- transferir ELO;
-- usar `approve` e `transferFrom` conforme o padrão ERC-20.
+### 1. Compilação e Deploy no Remix IDE
+1. Abra o [Remix IDE](https://remix.ethereum.org/).
+2. Crie um arquivo chamado `ELO.sol` e cole o código do contrato inteligente.
+3. Em **Solidity Compiler**, selecione a versão `0.8.20` ou superior e clique em **Compile ELO.sol**.
+4. Em **Deploy & Run Transactions**:
+   * Selecione o ambiente **Injected Provider - MetaMask** (certifique-se de estar na rede **Sepolia**).
+   * No campo `Deploy`, insira o endereço da sua carteira administradora como parâmetro do construtor.
+   * Clique em **Transact** e confirme na MetaMask.
+5. Copie o **endereço do contrato gerado**.
 
-**Importante:** o aluno não possui permissão para criar ELO.
+### 2. Configuração do Front-end (`index.html`)
+1. Abra o arquivo `index.html`.
+2. Localize a constante `CONTRACT_ADDRESS` no código JavaScript e substitua pelo endereço copiado:
+   ```javascript
+   const CONTRACT_ADDRESS = "0x0361Ad563E8054D140A024AEc69d502388073FeC";
 
-## 4. Proteções implementadas
+### 3. Arquitetura dos arquivos
+1. Abra o arquivo `index.html` em qualquer navegador web.
 
-1. **Supply máximo:** nunca podem existir mais de 10 milhões de ELO.
-2. **Limite por recompensa:** uma chamada não pode conceder mais de 1.000 ELO.
-3. **Controle por função:** apenas `REWARDER_ROLE` pode conceder recompensas.
-4. **Administração separada:** somente `DEFAULT_ADMIN_ROLE` gerencia os recompensadores.
-5. **Pausa de emergência:** o administrador pode interromper operações que alteram saldos.
-6. **Validação de entradas:** endereço, quantidade e motivo são validados.
-7. **Auditoria:** recompensas geram eventos com quem concedeu, quem recebeu, quantidade e motivo.
-8. **Sem mint público:** não existe função aberta para qualquer usuário criar tokens.
+---
 
-## 5. Estrutura
-
-```text
-ELO_ERC20_V2_Seguro/
-├── README.md
-├── LICENSE
-├── contracts/
-│   └── ELO.sol
-└── docs/
-    ├── GUIA_DE_USO.md
-    └── DEPLOY_REMIX.md
-```
-
-## 6. Deploy no Remix
-
-1. Abra o Remix.
-2. Crie `ELO.sol` dentro de `contracts/`.
-3. Cole o código deste projeto.
-4. Use o compilador Solidity `0.8.20`.
-5. Instale/importe OpenZeppelin conforme o Remix resolver os imports.
-6. Em **Deploy & Run Transactions**, selecione a rede Testnet.
-7. No construtor, informe a carteira que será o administrador.
-8. Faça o deploy.
-9. Copie o endereço do contrato.
-10. Atualize os comentários de endereço no topo de `ELO.sol`.
-
-## 7. Roteiro de demonstração
-
-### Teste 1 — aluno tentando criar tokens
-Troque a conta do Remix para uma carteira sem `REWARDER_ROLE` e tente `concederElo()`.
-
-**Resultado esperado:** transação revertida por falta de permissão.
-
-### Teste 2 — administrador cadastra recompensador
-Com a conta administradora:
+## 📁 Estrutura de Arquivos
 
 ```text
-adicionarRecompensador(enderecoDoRecompensador)
-```
+├── ELO.sol        # Contrato Inteligente ERC-20 em Solidity
+├── index.html     # Painel de Controle (HTML5 + Tailwind CSS + Ethers.js v6)
+└── README.md      # Documentação do projeto
 
-### Teste 3 — recompensador concede ELO
-Troque para a conta autorizada:
+---
 
-```text
-concederElo(
-  enderecoDoAluno,
-  100000000000000000000,
-  "Participação no projeto"
-)
-```
+## 🛠️ Como Usar a Interface Web
 
-O valor acima representa **100 ELO**, porque o token usa 18 casas decimais.
-
-### Teste 4 — limite de recompensa
-Tente conceder mais de 1.000 ELO em uma única chamada.
-
-**Resultado esperado:** transação revertida.
-
-### Teste 5 — pausa
-Administrador:
-
-```text
-pausar()
-```
-
-Depois tente uma `transfer`.
-
-**Resultado esperado:** transação revertida.
-
-### Teste 6 — retomada
-Administrador:
-
-```text
-despausar()
-```
-
-A transferência deve voltar a funcionar.
-
-## 8. Entrega
-
-Antes de enviar:
-- [ ] código compilando;
-- [ ] contrato implantado na Testnet;
-- [ ] endereço preenchido em `ELO.sol`;
-- [ ] testes de segurança realizados;
-- [ ] README revisado;
-- [ ] guia de `transfer` e `approve` revisado;
-- [ ] evidências do Remix/Explorer separadas para apresentação.
+1. **Conectar Carteira:** Clique em **Conectar MetaMask** e certifique-se de estar conectado na rede **Sepolia**.
+2. **Conceder Recompensa** (Apenas contas com `REWARDER_ROLE`):
+   * Insira o endereço do aluno (`0x...`).
+   * Informe a quantidade de ELO e o motivo da recompensa.
+   * Clique em **Enviar Recompensa** e confirme a transação.
+3. **Resgatar Benefício** (Alunos):
+   * Informe a quantidade de ELO necessária e o nome do benefício (ex: *Ponto extra na prova*).
+   * Clique em **Resgatar Benefício** para confirmar a queima dos tokens.
