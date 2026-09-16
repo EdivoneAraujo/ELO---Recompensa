@@ -45,10 +45,10 @@ O **ELO** é um token de recompensa educacional baseado no padrão **ERC-20**, d
    ```javascript
    const CONTRACT_ADDRESS = "0x0361Ad563E8054D140A024AEc69d502388073FeC";
 
+---
+
 ### 3. Arquitetura dos arquivos
 1. Abra o arquivo `index.html` em qualquer navegador web.
-
----
 
 ## 📁 Estrutura de Arquivos
 
@@ -56,6 +56,7 @@ O **ELO** é um token de recompensa educacional baseado no padrão **ERC-20**, d
 ├── ELO.sol        # Contrato Inteligente ERC-20 em Solidity
 ├── index.html     # Painel de Controle (HTML5 + Tailwind CSS + Ethers.js v6)
 └── README.md      # Documentação do projeto
+```
 
 ---
 
