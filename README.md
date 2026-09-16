@@ -30,6 +30,7 @@ O **ELO** é um token de recompensa educacional baseado no padrão **ERC-20**, d
 ## 🚀 Como Executar o Projeto
 
 ### 1. Compilação e Deploy no Remix IDE
+
 1. Abra o [Remix IDE](https://remix.ethereum.org/).
 2. Crie um arquivo chamado `ELO.sol` e cole o código do contrato inteligente.
 3. Em **Solidity Compiler**, selecione a versão `0.8.20` ou superior e clique em **Compile ELO.sol**.
@@ -40,14 +41,18 @@ O **ELO** é um token de recompensa educacional baseado no padrão **ERC-20**, d
 5. Copie o **endereço do contrato gerado**.
 
 ### 2. Configuração do Front-end (`index.html`)
+
 1. Abra o arquivo `index.html`.
 2. Localize a constante `CONTRACT_ADDRESS` no código JavaScript e substitua pelo endereço copiado:
-   ```javascript
-   const CONTRACT_ADDRESS = "0x0361Ad563E8054D140A024AEc69d502388073FeC";
+
+  ```javascript
+
+  const CONTRACT_ADDRESS = "0x0361Ad563E8054D140A024AEc69d502388073FeC";
 
 ---
 
 ### 3. Arquitetura dos arquivos
+
 1. Abra o arquivo `index.html` em qualquer navegador web.
 
 ## 📁 Estrutura de Arquivos
