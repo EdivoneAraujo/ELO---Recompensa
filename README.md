@@ -75,3 +75,30 @@ O **ELO** é um token de recompensa educacional baseado no padrão **ERC-20**, d
 3. **Resgatar Benefício** (Alunos):
    * Informe a quantidade de ELO necessária e o nome do benefício (ex: *Ponto extra na prova*).
    * Clique em **Resgatar Benefício** para confirmar a queima dos tokens.
+
+---
+
+## 🔍 Guia Prático das Funções Padrão ERC-20 (transfer e approve)
+
+Para interagir diretamente com o contrato através do Remix IDE ou de outras carteiras/scripts, utilize os conceitos das funções padrão do ERC-20:
+
+1. Função transfer (Enviar Tokens)
+Utilizada para transferir tokens ELO diretamente da sua carteira para a carteira de outro usuário (por exemplo, um colega).
+
+Parâmetros:
+
+to (address): O endereço da carteira de destino (ex: 0x...).
+
+value (uint256): A quantidade de tokens a ser enviada (lembrando de multiplicar pelas casas decimais, utilizando parseUnits(quantidade, 18) no Ethers.js ou adicionando 18 zeros caso chame direto no Remix em wei).
+
+Como executar no Remix: Expanda o contrato implantado, localize a função transfer, preencha o campo to com o endereço do destinatário e o campo value com a quantidade desejada, depois clique em Transact.
+2. Função approve (Autorizar Gastos)
+Utilizada para autorizar que um terceiro (como um contrato inteligente de marketplace escolar ou outra conta) gaste uma quantidade específica de tokens em seu nome.
+
+Parâmetros:
+
+spender (address): O endereço autorizado a movimentar os tokens.
+
+value (uint256): O limite máximo de tokens que o spender pode gastar da sua conta.
+
+Como executar no Remix: Localize a função approve, insira o endereço do spender e a quantidade autorizada (value), e clique em Transact para confirmar a permissão na MetaMask.
