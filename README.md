@@ -1,4 +1,4 @@
-# 🎓 Token ELO (ELO) — Economia de Recompensa Escolar
+# 🎓 Token ELO (ELO) — Valorizando o Desempenho Acadêmico
 
 O **ELO** é um token de recompensa educacional baseado no padrão **ERC-20**, desenvolvido em Solidity com suporte das bibliotecas OpenZeppelin. O objetivo do projeto é gamificar a participação e o engajamento dos alunos, permitindo que professores e administradores concedam tokens por mérito acadêmico ou comportamental, e que os alunos possam resgatá-los por benefícios escolares.
 
